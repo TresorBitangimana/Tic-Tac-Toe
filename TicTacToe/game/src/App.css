@@ -1,0 +1,23 @@
+:root {
+    margin: 0;
+    padding: 0;
+
+    /* color-scheme: light dark; */
+
+    --background-color: rgb(140, 161, 174);
+    --primary-color: rgb(200, 200, 200);
+    --button-color: rgb(0, 98, 163);
+    --button-color-hover: rgb(0, 111, 185);
+    --button-color-click: rgb(0, 128, 213);
+    --player-one-color: rgb(225, 225, 255);
+    --player-two-color: rgb(255, 225, 225);
+}
+
+.container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: var(--background-color); */
+}
