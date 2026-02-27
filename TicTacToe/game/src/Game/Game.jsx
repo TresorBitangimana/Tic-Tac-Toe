@@ -1,11 +1,11 @@
 import "./Game.css";
 
 import { useState, useEffect } from "react";
+import { useNavigate, useNavigationType } from "react-router-dom";
 
 function Home() {
     const [turnCount, setTurnCount] = useState(1);
-    const [player, setPlayer] = useState("");
-    const [position, setPosition] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (turnCount == 10) {
@@ -16,29 +16,33 @@ function Home() {
 
             const handleClick = (e) => {
                 if (e.target.textContent == "") {
+                    let player = "";
                     if (turnCount % 2 == 0) {
                         e.target.textContent = "O";
-                        setPlayer("O");
+                        player = "O";
                     } else {
                         e.target.textContent = "X";
-                        setPlayer("X");
+                        player = "X";
                     }
 
                     const currPosition = e.target.id
                         .toString()
                         .charAt(e.target.id.length - 1); //gets the position of the clicked cell
-                    setPosition(currPosition);
+
+                    const currGameData = {
+                        player: player,
+                        position: currPosition,
+                    };
 
                     //call the api and updates updates the data.
-
-                    handleUpdateOnBoard();
+                    console.log(currGameData);
+                    handleUpdateOnBoard(currGameData);
 
                     setTurnCount(turnCount + 1);
                 }
             };
 
-            const gameData = { player: player, position: position };
-            console.log(gameData);
+            // console.log(gameData);
 
             //adds an onclick event listener each individual cell.
             cells.forEach((cell) => {
@@ -52,6 +56,15 @@ function Home() {
             };
         }
     }, [turnCount]);
+
+    // //when an update is made on the board, the backend api is called to update data.
+    async function handleUpdateOnBoard(currGameData) {
+        const response = await fetch("http://localhost:8080/api/user", {
+            method: "POST",
+            headers: { "Content-Type": "Application/json" },
+            body: JSON.stringify(currGameData),
+        });
+    }
 
     //restart game function
     function restartGame() {
@@ -77,46 +90,76 @@ function Home() {
         winner.textContent = "player Wins";
     }
 
+    function handleLogInSignUp() {
+        navigate("/login");
+    }
+
     return (
-        <div className="game-container" id="game-container">
-            <div className="score-container" id="score-container">
-                <div className="scores" id="score1">
-                    <h1 className="s1" id="s1">
-                        0
-                    </h1>
-                </div>
-                <div className="scores" id="score2">
-                    <h1 className="s2" id="s2">
-                        0
-                    </h1>
-                </div>
-            </div>
-            <div className="game" id="game">
-                <div className="cells" id="cell1"></div>
-                <div className="cells" id="cell2"></div>
-                <div className="cells" id="cell3"></div>
-                <div className="cells" id="cell4"></div>
-                <div className="cells" id="cell5"></div>
-                <div className="cells" id="cell6"></div>
-                <div className="cells" id="cell7"></div>
-                <div className="cells" id="cell8"></div>
-                <div className="cells" id="cell9"></div>
-                {/* Game Over Container  */}
-                <div className="game-over-container" id="game-over-container">
-                    <p className="game-over-text" id="game-over-text">
-                        Game Over!!!
-                    </p>
-                    <h1 className="winner" id="winner"></h1>
-                </div>
-            </div>
-            <div className="restart-container" id="restart-container">
+        <div className="home-container" id="home-container">
+            <div
+                className="log-in-sign-up-container"
+                id="log-in-sign-up-container"
+            >
                 <button
-                    className="restart-button"
-                    id="restart-button"
-                    onClick={restartGame}
+                    className="log-in-sign-up-button"
+                    id="log-in-sign-up-button"
+                    onClick={handleLogInSignUp}
                 >
-                    Restart
+                    Log in / Sign up
                 </button>
+            </div>
+            <div className="menu-container" id="menu-container">
+                <button className="player-vs-player" id="player-vs-player">
+                    1 vs 1
+                </button>
+                <button className="player-vs-bot" id="player-vs-bot">
+                    vs bot
+                </button>
+            </div>
+
+            <div className="game-container" id="game-container">
+                <div className="score-container" id="score-container">
+                    <div className="scores" id="score1">
+                        <h1 className="s1" id="s1">
+                            0
+                        </h1>
+                    </div>
+                    <div className="scores" id="score2">
+                        <h1 className="s2" id="s2">
+                            0
+                        </h1>
+                    </div>
+                </div>
+                <div className="game" id="game">
+                    <div className="cells" id="cell1"></div>
+                    <div className="cells" id="cell2"></div>
+                    <div className="cells" id="cell3"></div>
+                    <div className="cells" id="cell4"></div>
+                    <div className="cells" id="cell5"></div>
+                    <div className="cells" id="cell6"></div>
+                    <div className="cells" id="cell7"></div>
+                    <div className="cells" id="cell8"></div>
+                    <div className="cells" id="cell9"></div>
+                    {/* Game Over Container  */}
+                    <div
+                        className="game-over-container"
+                        id="game-over-container"
+                    >
+                        <p className="game-over-text" id="game-over-text">
+                            Game Over!!!
+                        </p>
+                        <h1 className="winner" id="winner"></h1>
+                    </div>
+                </div>
+                <div className="restart-container" id="restart-container">
+                    <button
+                        className="restart-button"
+                        id="restart-button"
+                        onClick={restartGame}
+                    >
+                        Restart
+                    </button>
+                </div>
             </div>
         </div>
     );

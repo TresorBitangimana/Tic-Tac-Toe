@@ -12,7 +12,7 @@ function LogIn() {
         if (username.length > 0 && password.length > 0) {
             const user = { username, password };
             console.log(username, "logged in");
-            navigate("/home");
+            navigate("/");
         } else {
             e.preventDefault(); //prevents the page from reloading
         }
@@ -22,14 +22,14 @@ function LogIn() {
         if (username.length > 0 && password.length > 0) {
             const user = { username, password };
             console.log(username, "logged in");
-            navigate("/home");
+            navigate("/");
         } else {
             e.preventDefault(); //prevents the page from reloading
         }
     }
 
-    //shoes the continue game log in option when the continue button is clicked
-    function showContinueOption() {
+    //shows the continue game log in option when the continue button is clicked
+    function showLogInOption() {
         const continueGameContainer = document.getElementById(
             "continue-game-container",
         );
@@ -130,11 +130,11 @@ function LogIn() {
                         </form>
                     </div>
                     <button
-                        onClick={showContinueOption}
+                        onClick={showLogInOption}
                         className="option-buttons"
                         id="continue-container"
                     >
-                        Continue
+                        Log In
                     </button>
                     <button
                         onClick={showCreateAccountOption}

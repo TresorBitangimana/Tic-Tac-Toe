@@ -3,6 +3,74 @@
     padding: 0;
 }
 
+.home-container {
+    height: 100vh;
+    height: 100dvh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.log-in-sign-up-container {
+    position: absolute;
+    width: auto;
+
+    right: 10%;
+    top: 5%;
+}
+
+.log-in-sign-up-button {
+    background-color: var(--button-color);
+    color: white;
+}
+.log-in-sign-up-button:hover {
+    cursor: pointer;
+    background-color: var(--button-color-hover);
+}
+.log-in-sign-up-button:active {
+    background-color: var(--button-color-click);
+}
+.log-in-sign-up-button:focus {
+    outline: none;
+}
+
+.menu-container {
+    position: absolute;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    left: 10%;
+}
+
+.player-vs-player {
+    background-color: white;
+    border: 1px solid black;
+    height: 75px;
+    width: 200px;
+    font-size: 2em;
+    background-color: rgba(0, 128, 0, 0.2);
+}
+.player-vs-player:focus {
+    outline: none;
+}
+.player-vs-bot {
+    background-color: white;
+    border: 1px solid black;
+    height: 75px;
+    width: 200px;
+    font-size: 2em;
+    background-color: rgba(0, 128, 0, 0.2);
+}
+.player-vs-bot:focus {
+    outline: none;
+}
+
 .game-container {
     display: flex;
     flex-direction: column;
