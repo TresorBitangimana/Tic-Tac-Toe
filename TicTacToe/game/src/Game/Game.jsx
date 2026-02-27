@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 
 function Home() {
     const [turnCount, setTurnCount] = useState(1);
+    const [player, setPlayer] = useState("");
+    const [position, setPosition] = useState("");
 
     useEffect(() => {
         if (turnCount == 10) {
@@ -16,13 +18,29 @@ function Home() {
                 if (e.target.textContent == "") {
                     if (turnCount % 2 == 0) {
                         e.target.textContent = "O";
+                        setPlayer("O");
                     } else {
                         e.target.textContent = "X";
+                        setPlayer("X");
                     }
+
+                    const currPosition = e.target.id
+                        .toString()
+                        .charAt(e.target.id.length - 1); //gets the position of the clicked cell
+                    setPosition(currPosition);
+
+                    //call the api and updates updates the data.
+
+                    handleUpdateOnBoard();
+
                     setTurnCount(turnCount + 1);
                 }
             };
 
+            const gameData = { player: player, position: position };
+            console.log(gameData);
+
+            //adds an onclick event listener each individual cell.
             cells.forEach((cell) => {
                 cell.addEventListener("click", handleClick);
             });
