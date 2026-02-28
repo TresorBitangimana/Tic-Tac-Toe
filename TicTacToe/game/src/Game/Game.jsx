@@ -3,6 +3,9 @@ import "./Game.css";
 import { useState, useEffect } from "react";
 import { useNavigate, useNavigationType } from "react-router-dom";
 
+import { IoPerson } from "react-icons/io5";
+import { FaRobot } from "react-icons/fa6";
+
 function Home() {
     const [turnCount, setTurnCount] = useState(1);
     const navigate = useNavigate();
@@ -35,7 +38,7 @@ function Home() {
                     };
 
                     //call the api and updates updates the data.
-                    console.log(currGameData);
+                    // console.log(currGameData);
                     handleUpdateOnBoard(currGameData);
 
                     setTurnCount(turnCount + 1);
@@ -59,11 +62,15 @@ function Home() {
 
     // //when an update is made on the board, the backend api is called to update data.
     async function handleUpdateOnBoard(currGameData) {
-        const response = await fetch("http://localhost:8080/api/user", {
-            method: "POST",
-            headers: { "Content-Type": "Application/json" },
-            body: JSON.stringify(currGameData),
-        });
+        try {
+            const response = await fetch("http://localhost:8080/", {
+                method: "POST",
+                headers: { "Content-Type": "Application/json" },
+                body: JSON.stringify(currGameData),
+            });
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     //restart game function
@@ -110,10 +117,10 @@ function Home() {
             </div>
             <div className="menu-container" id="menu-container">
                 <button className="player-vs-player" id="player-vs-player">
-                    1 vs 1
+                    <IoPerson /> vs <IoPerson />
                 </button>
                 <button className="player-vs-bot" id="player-vs-bot">
-                    vs bot
+                    <IoPerson /> vs <FaRobot />
                 </button>
             </div>
 

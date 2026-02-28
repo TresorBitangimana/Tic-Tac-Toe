@@ -55,6 +55,11 @@
     width: 200px;
     font-size: 2em;
     background-color: rgba(0, 128, 0, 0.2);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 .player-vs-player:focus {
     outline: none;
@@ -66,6 +71,11 @@
     width: 200px;
     font-size: 2em;
     background-color: rgba(0, 128, 0, 0.2);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 .player-vs-bot:focus {
     outline: none;

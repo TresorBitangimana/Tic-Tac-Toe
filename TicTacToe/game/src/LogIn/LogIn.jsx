@@ -10,8 +10,11 @@ function LogIn() {
 
     function handleLogIn(e) {
         if (username.length > 0 && password.length > 0) {
-            const user = { username, password };
-            console.log(username, "logged in");
+            const user = { username, password, method: "Log-in" };
+            console.log(user, "logged in");
+
+            handleLogInRequest(user);
+
             navigate("/");
         } else {
             e.preventDefault(); //prevents the page from reloading
@@ -20,12 +23,24 @@ function LogIn() {
 
     function handleCreateAccount(e) {
         if (username.length > 0 && password.length > 0) {
-            const user = { username, password };
-            console.log(username, "logged in");
+            setMethod("createAccount");
+            const user = { username, password, method: "Create-account" };
+            console.log(user, "created an account");
+
+            handleLogInRequest(user);
+
             navigate("/");
         } else {
             e.preventDefault(); //prevents the page from reloading
         }
+    }
+
+    async function handleLogInRequest(user) {
+        const response = await fetch("http://localhost:8080/login", {
+            method: "POST",
+            headers: { "Content-Type": "Application/json" },
+            body: JSON.stringify(user),
+        });
     }
 
     //shows the continue game log in option when the continue button is clicked
