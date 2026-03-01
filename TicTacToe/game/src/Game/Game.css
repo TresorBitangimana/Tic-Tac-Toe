@@ -81,6 +81,35 @@
     outline: none;
 }
 
+.level-container {
+    position: absolute;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    right: 10%;
+}
+
+.level-buttons {
+    background-color: white;
+    border: 1px solid black;
+    height: 50px;
+    width: 150px;
+    font-size: 1em;
+    background-color: rgba(0, 128, 0, 0.2);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.level-button:focus {
+    outline: none;
+}
+
 .game-container {
     display: flex;
     flex-direction: column;

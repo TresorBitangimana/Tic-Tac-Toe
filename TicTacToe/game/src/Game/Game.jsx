@@ -124,6 +124,18 @@ function Home() {
                 </button>
             </div>
 
+            <div className="level-container" id="level-container">
+                <button className="level-buttons" id="level-one-button">
+                    Level 1
+                </button>
+                <button className="level-buttons" id="level-two-button">
+                    Level 2
+                </button>
+                <button className="level-buttons" id="level-three-button">
+                    Level 3
+                </button>
+            </div>
+
             <div className="game-container" id="game-container">
                 <div className="score-container" id="score-container">
                     <div className="scores" id="score1">
