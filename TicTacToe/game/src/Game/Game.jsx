@@ -1,7 +1,7 @@
 import "./Game.css";
 
 import { useState, useEffect } from "react";
-import { useNavigate, useNavigationType } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { IoPerson } from "react-icons/io5";
 import { FaRobot } from "react-icons/fa6";
@@ -9,6 +9,7 @@ import { FaRobot } from "react-icons/fa6";
 function Home() {
     const [turnCount, setTurnCount] = useState(1);
     const navigate = useNavigate();
+    let isWinner = false;
 
     useEffect(() => {
         if (turnCount == 10) {
@@ -18,30 +19,34 @@ function Home() {
             const cells = document.querySelectorAll(".cells");
 
             const handleClick = (e) => {
-                if (e.target.textContent == "") {
-                    let player = "";
-                    if (turnCount % 2 == 0) {
-                        e.target.textContent = "O";
-                        player = "O";
-                    } else {
-                        e.target.textContent = "X";
-                        player = "X";
+                if (isWinner) {
+                    //handles winner
+                } else {
+                    if (e.target.textContent == "") {
+                        let player = "";
+                        if (turnCount % 2 == 0) {
+                            e.target.textContent = "O";
+                            player = "O";
+                        } else {
+                            e.target.textContent = "X";
+                            player = "X";
+                        }
+
+                        const currPosition = e.target.id
+                            .toString()
+                            .charAt(e.target.id.length - 1); //gets the position of the clicked cell
+
+                        const currGameData = {
+                            player: player,
+                            position: currPosition,
+                        };
+
+                        //call the api and updates updates the data.
+                        // console.log(currGameData);
+                        handleUpdateOnBoard(currGameData);
+
+                        setTurnCount(turnCount + 1);
                     }
-
-                    const currPosition = e.target.id
-                        .toString()
-                        .charAt(e.target.id.length - 1); //gets the position of the clicked cell
-
-                    const currGameData = {
-                        player: player,
-                        position: currPosition,
-                    };
-
-                    //call the api and updates updates the data.
-                    // console.log(currGameData);
-                    handleUpdateOnBoard(currGameData);
-
-                    setTurnCount(turnCount + 1);
                 }
             };
 
@@ -68,13 +73,16 @@ function Home() {
                 headers: { "Content-Type": "Application/json" },
                 body: JSON.stringify(currGameData),
             });
+
+            const data = await response.json();
+            console.log(data);
         } catch (error) {
             console.error(error);
         }
     }
 
     //restart game function
-    function restartGame() {
+    async function restartGame() {
         const gameOverContainer = document.getElementById(
             "game-over-container",
         );
@@ -83,6 +91,15 @@ function Home() {
         cells.forEach((cell) => {
             cell.textContent = "";
         });
+
+        try {
+            await fetch("http://localhost:8080/restart", {
+                method: "POST",
+            });
+        } catch (error) {
+            console.error(error);
+        }
+
         setTurnCount(1);
     }
 
