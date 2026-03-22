@@ -47,8 +47,99 @@ public class GameFunction {
         }
     }
 
-    public String checkWinner(){
-
+    public String getWinner(){
         return winner;
+    }
+
+    public void checkWinner(String[][] board){
+        winner = winningCondition(board);
+    }
+
+    public String winningCondition(String[][] board){
+        // if X wins
+        if(board[0][0] != null && board[0][0].equals("X") &&
+                board[0][1] != null && board[0][1].equals("X") &&
+                board[0][2] != null && board[0][2].equals("X")){
+            return "X";
+        }
+        else if(board[1][0] != null && board[1][0].equals("X") &&
+                board[1][1] != null && board[1][1].equals("X") &&
+                board[1][2] != null && board[1][2].equals("X")){
+            return "X";
+        }
+        else if(board[2][0] != null && board[2][0].equals("X") &&
+                board[2][1] != null && board[2][1].equals("X") &&
+                board[2][2] != null && board[2][2].equals("X")){
+            return "X";
+        }
+        else if(board[0][0] != null && board[0][0].equals("X") &&
+                board[1][1] != null && board[1][1].equals("X") &&
+                board[2][2] != null && board[2][2].equals("X")){
+            return "X";
+        }
+        else if(board[2][0] != null && board[2][0].equals("X") &&
+                board[1][1] != null && board[1][1].equals("X") &&
+                board[0][2] != null && board[0][2].equals("X")){
+            return "X";
+        }
+        else if(board[0][1] != null && board[0][1].equals("X") &&
+                board[1][1] != null && board[1][1].equals("X") &&
+                board[2][1] != null && board[2][1].equals("X")){
+            return "X";
+        }
+        else if(board[0][0] != null && board[0][0].equals("X") &&
+                board[1][0] != null && board[1][0].equals("X") &&
+                board[2][0] != null && board[2][0].equals("X")){
+            return "X";
+        }
+        else if(board[0][2] != null && board[0][2].equals("X") &&
+                board[1][2] != null && board[1][2].equals("X") &&
+                board[2][2] != null && board[2][2].equals("X")){
+            return "X";
+        }
+
+        // if O wins
+        if(board[0][0] != null && board[0][0].equals("O") &&
+                board[0][1] != null && board[0][1].equals("O") &&
+                board[0][2] != null && board[0][2].equals("O")){
+            return "O";
+        }
+        else if(board[1][0] != null && board[1][0].equals("O") &&
+                board[1][1] != null && board[1][1].equals("O") &&
+                board[1][2] != null && board[1][2].equals("O")){
+            return "O";
+        }
+        else if(board[2][0] != null && board[2][0].equals("O") &&
+                board[2][1] != null && board[2][1].equals("O") &&
+                board[2][2] != null && board[2][2].equals("O")){
+            return "O";
+        }
+        else if(board[0][0] != null && board[0][0].equals("O") &&
+                board[1][1] != null && board[1][1].equals("O") &&
+                board[2][2] != null && board[2][2].equals("O")){
+            return "O";
+        }
+        else if(board[2][0] != null && board[2][0].equals("O") &&
+                board[1][1] != null && board[1][1].equals("O") &&
+                board[0][2] != null && board[0][2].equals("O")){
+            return "O";
+        }
+        else if(board[0][1] != null && board[0][1].equals("O") &&
+                board[1][1] != null && board[1][1].equals("O") &&
+                board[2][1] != null && board[2][1].equals("O")){
+            return "O";
+        }
+        else if(board[0][0] != null && board[0][0].equals("O") &&
+                board[1][0] != null && board[1][0].equals("O") &&
+                board[2][0] != null && board[2][0].equals("O")){
+            return "O";
+        }
+        else if(board[0][2] != null && board[0][2].equals("O") &&
+                board[1][2] != null && board[1][2].equals("O") &&
+                board[2][2] != null && board[2][2].equals("O")){
+            return "O";
+        }
+
+        return null;
     }
 }

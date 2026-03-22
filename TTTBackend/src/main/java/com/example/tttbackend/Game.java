@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/")
 @CrossOrigin("http://localhost:5173")
 public class Game {
 
@@ -28,6 +29,7 @@ public class Game {
 
         gameFunction.addPlay(position, player); //adds the play to the linkedHashMap play
         gameFunction.updateBoard(position, player); //updates the board
+        gameFunction.checkWinner(gameFunction.getBoard()); //checks if there is a winner
 
         return ResponseEntity.ok(gameFunction);
     }

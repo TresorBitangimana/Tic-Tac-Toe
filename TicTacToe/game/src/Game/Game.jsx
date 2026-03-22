@@ -8,12 +8,14 @@ import { FaRobot } from "react-icons/fa6";
 
 function Home() {
     const [turnCount, setTurnCount] = useState(1);
+    const [playerXScore, setPlayerXSCore] = useState(0);
+    const [playerOScore, setPlayerOSCore] = useState(0);
     const navigate = useNavigate();
     let isWinner = false;
 
     useEffect(() => {
         if (turnCount == 10) {
-            gameOver();
+            gameOver("Draw"); //calls the gameover function and gives draw as the perimiter
             setTurnCount(0); //resets the counter
         } else {
             const cells = document.querySelectorAll(".cells");
@@ -75,7 +77,12 @@ function Home() {
             });
 
             const data = await response.json();
-            console.log(data);
+            // console.log(data); //prints the game board, plays, and winner in the terminal
+            //checks if there is a winner and calls the gameOver function if so.
+            if (data.winner != null) {
+                let winningPlayer = data.winner;
+                gameOver(winningPlayer);
+            }
         } catch (error) {
             console.error(error);
         }
@@ -89,10 +96,11 @@ function Home() {
         gameOverContainer.style.display = "none";
         const cells = document.querySelectorAll(".cells");
         cells.forEach((cell) => {
-            cell.textContent = "";
+            cell.textContent = ""; //resets the content of the cells when the restart button is clicked
         });
 
         try {
+            //sends a post fetch to resets the board in the backend
             await fetch("http://localhost:8080/restart", {
                 method: "POST",
             });
@@ -103,15 +111,31 @@ function Home() {
         setTurnCount(1);
     }
 
+    //updates the score board
+    function handleScores(winningPlayer) {
+        if (winningPlayer == "X") {
+            setPlayerXSCore(playerXScore + 1); // adds 1 to player X
+        } else {
+            setPlayerOSCore(playerOScore + 1); //adds 1 to player O
+        }
+    }
+
     //game over function
-    function gameOver() {
+    function gameOver(winningPlayer) {
         const gameOverContainer = document.getElementById(
             "game-over-container",
         );
         const winner = document.getElementById("winner");
 
-        gameOverContainer.style.display = "block";
-        winner.textContent = "player Wins";
+        gameOverContainer.style.display = "block"; //displays the gamover container which blocks the game board
+        // and the user is unable to play untill they click the restart button.
+        //assgihns the winner to the winning player, and "Draw if the game ends with a draw"
+        if (winningPlayer != "Draw") {
+            winner.textContent = `${winningPlayer} Wins`;
+            handleScores(winningPlayer); //calls the handle scores function to update the score
+        } else {
+            winner.textContent = "Draw";
+        }
     }
 
     function handleLogInSignUp() {
@@ -157,12 +181,12 @@ function Home() {
                 <div className="score-container" id="score-container">
                     <div className="scores" id="score1">
                         <h1 className="s1" id="s1">
-                            0
+                            {playerXScore}
                         </h1>
                     </div>
                     <div className="scores" id="score2">
                         <h1 className="s2" id="s2">
-                            0
+                            {playerOScore}
                         </h1>
                     </div>
                 </div>
