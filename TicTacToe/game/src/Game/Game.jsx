@@ -138,24 +138,8 @@ function Home() {
         }
     }
 
-    function handleLogInSignUp() {
-        navigate("/login");
-    }
-
     return (
         <div className="home-container" id="home-container">
-            <div
-                className="log-in-sign-up-container"
-                id="log-in-sign-up-container"
-            >
-                <button
-                    className="log-in-sign-up-button"
-                    id="log-in-sign-up-button"
-                    onClick={handleLogInSignUp}
-                >
-                    Log in / Sign up
-                </button>
-            </div>
             <div className="menu-container" id="menu-container">
                 <button className="player-vs-player" id="player-vs-player">
                     <IoPerson /> vs <IoPerson />
